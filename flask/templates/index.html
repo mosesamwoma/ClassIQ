@@ -16,17 +16,23 @@ Flask Home
             </tr>
         </thead>
         <tbody>
-            {% for task in tasks %}
             <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>Example Task 1</td>
+                <td>2025-12-23 16:00</td>
                 <td>
-                    <a href="{{ url_for('delete_task', task_id=task.id) }}">DELETE</a>
-                    <br>
-                    <a href="{{ url_for('update_task', task_id=task.id) }}">UPDATE</a>
+                    <a href="#">DELETE</a><br>
+                    <a href="#">UPDATE</a>
                 </td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>Example Task 2</td>
+                <td>2025-12-23 17:00</td>
+                <td>
+                    <a href="#">DELETE</a><br>
+                    <a href="#">UPDATE</a>
+                </td>
+            </tr>
+            <!-- You can add more static rows or use Flask loops to dynamically populate -->
         </tbody>
     </table>
 </div>

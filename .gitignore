@@ -1,0 +1,33 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# SQLite database
+site.db
+
+# Instance folder (if using Flask instance)
+instance/
+
+# IDE/editor config
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables (if any)
+.env
+.env.local

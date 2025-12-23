@@ -5,6 +5,29 @@ Flask Home
 {% endblock %}
 
 {% block content %}
-<h1>Welcome to the Flask Application!</h1>
-<p>This is the home page.</p>
+<div class="container">
+    <h1>TASK MANAGER</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>TASK</th>
+                <th>ADDED</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    <a href="{{ url_for('delete_task', task_id=task.id) }}">DELETE</a>
+                    <br>
+                    <a href="{{ url_for('update_task', task_id=task.id) }}">UPDATE</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

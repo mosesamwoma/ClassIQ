@@ -70,27 +70,6 @@ Before running this application, make sure you have the following installed:
    http://127.0.0.1:5000/
    ```
 
-## 📁 Project Structure
-
-```
-flask-todo-app/
-│
-├── app.py                 # Main application file
-├── requirements.txt       # Python dependencies
-│
-├── templates/            # HTML templates
-│   ├── base.html         # Base template
-│   ├── index.html        # Main page
-│   └── update.html       # Update task page
-│
-├── static/               # Static files
-│   └── css/
-│       └── style.css     # Custom styles
-│
-└── instance/             # Instance folder (auto-generated)
-    └── db.sqlite         # SQLite database
-```
-
 ## 🎯 Usage
 
 ### Adding a Task

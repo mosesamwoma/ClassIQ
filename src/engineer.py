@@ -1,7 +1,7 @@
 import pandas as pd
 
 PROCESSED = "data/processed/cleaned.csv"
-ENGINEERED = "data/processed/skipsense_ready.csv"
+ENGINEERED = "data/processed/ClassIQ_ready.csv"
 
 df = pd.read_csv(PROCESSED)
 

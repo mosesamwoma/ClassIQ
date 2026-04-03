@@ -3,7 +3,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-DATA = "data/processed/skipsense_ready.csv"
+DATA = "data/processed/ClassIQ_ready.csv"
 MODEL = "models/best_model.pkl"
 
 FEATURES = [

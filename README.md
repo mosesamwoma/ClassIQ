@@ -1,4 +1,11 @@
-**ClassIQ** is an AI-powered student attendance risk prediction system built using machine learning.
-It analyzes academic, behavioral, and environmental factors to determine whether a student is likely to attend or skip class.
-The model is trained and evaluated on structured data, with predictions served through an interactive Streamlit app.
-ClassIQ helps educators and students make smarter, data-driven decisions to improve academic outcomes.
+##  ClassIQ
+
+ClassIQ is an AI-powered student attendance risk prediction system built with machine learning and deployed using Streamlit.
+
+It analyzes academic, behavioral, and environmental factors to predict whether a student is likely to attend or skip class—helping drive smarter, data-informed decisions.
+
+---
+
+##  Live App
+
+👉 https://classiq.streamlit.app/

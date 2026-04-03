@@ -4,7 +4,7 @@ import joblib
 import os
 
 st.set_page_config(
-    page_title="SkipSense - Student Attendance Predictor",
+    page_title="ClassIQ - Student Attendance Predictor",
     layout="wide"
 )
 
@@ -47,7 +47,7 @@ encode = {
     "School_Type": {"Public": 0, "Private": 1},
 }
 
-st.title("SkipSense")
+st.title("ClassIQ")
 st.subheader("Student Attendance Prediction System")
 st.markdown("---")
 
@@ -197,4 +197,4 @@ if predict_btn and model:
         st.warning("High Risk Alert: Immediate intervention recommended.")
 
 st.markdown("---")
-st.caption("SkipSense - AI-Powered Student Attendance Prediction System")
+st.caption("ClassIQ - AI-Powered Student Attendance Prediction System")

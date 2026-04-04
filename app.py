@@ -5,8 +5,12 @@ import os
 
 st.set_page_config(
     page_title="ClassIQ - Student Attendance Predictor",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
+
+with open("style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 MODEL = "models/best_model.pkl"
 
@@ -32,54 +36,63 @@ FEATURES = [
 ]
 
 encode = {
-    "Parental_Involvement": {"Low": 0, "Medium": 1, "High": 2},
-    "Access_to_Resources": {"Low": 0, "Medium": 1, "High": 2},
-    "Motivation_Level": {"Low": 0, "Medium": 1, "High": 2},
-    "Family_Income": {"Low": 0, "Medium": 1, "High": 2},
-    "Teacher_Quality": {"Low": 0, "Medium": 1, "High": 2},
-    "Parental_Education_Level": {"High School": 0, "College": 1, "Postgraduate": 2},
-    "Distance_from_Home": {"Near": 0, "Moderate": 1, "Far": 2},
-    "Peer_Influence": {"Negative": 0, "Neutral": 1, "Positive": 2},
+    "Parental_Involvement":      {"Low": 0, "Medium": 1, "High": 2},
+    "Access_to_Resources":       {"Low": 0, "Medium": 1, "High": 2},
+    "Motivation_Level":          {"Low": 0, "Medium": 1, "High": 2},
+    "Family_Income":             {"Low": 0, "Medium": 1, "High": 2},
+    "Teacher_Quality":           {"Low": 0, "Medium": 1, "High": 2},
+    "Parental_Education_Level":  {"High School": 0, "College": 1, "Postgraduate": 2},
+    "Distance_from_Home":        {"Near": 0, "Moderate": 1, "Far": 2},
+    "Peer_Influence":            {"Negative": 0, "Neutral": 1, "Positive": 2},
     "Extracurricular_Activities": {"No": 0, "Yes": 1},
-    "Internet_Access": {"No": 0, "Yes": 1},
-    "Learning_Disabilities": {"No": 0, "Yes": 1},
-    "Gender": {"Female": 0, "Male": 1},
-    "School_Type": {"Public": 0, "Private": 1},
+    "Internet_Access":           {"No": 0, "Yes": 1},
+    "Learning_Disabilities":     {"No": 0, "Yes": 1},
+    "Gender":                    {"Female": 0, "Male": 1},
+    "School_Type":               {"Public": 0, "Private": 1},
 }
 
-st.title("ClassIQ")
-st.subheader("Student Attendance Prediction System")
+st.markdown('<h1 class="title-glow">ClassIQ</h1>', unsafe_allow_html=True)
+st.markdown("### AI-Powered Student Attendance Risk Prediction")
 st.markdown("---")
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown("Academic Information")
+    st.markdown('<p class="section-header">Academic Performance</p>',
+                unsafe_allow_html=True)
     hours_studied = st.slider("Hours Studied per Week", 0, 40, 10)
-    attendance = st.slider("Attendance (%)", 0, 100, 60)
+    attendance = st.slider("Current Attendance (%)", 0, 100, 60)
     previous_scores = st.slider("Previous Exam Scores", 0, 100, 55)
     tutoring_sessions = st.number_input("Tutoring Sessions per Week", 0, 10, 0)
+
+    st.markdown('<p class="section-header">Lifestyle Factors</p>',
+                unsafe_allow_html=True)
     sleep_hours = st.slider("Sleep Hours per Day", 3, 12, 5)
     physical_activity = st.slider("Physical Activity (hours/week)", 0, 20, 1)
 
 with col2:
-    st.markdown("Student Profile")
+    st.markdown('<p class="section-header">Family & Resources</p>',
+                unsafe_allow_html=True)
     parental_involvement = st.selectbox(
         "Parental Involvement", ["Low", "Medium", "High"])
     access_to_resources = st.selectbox(
         "Access to Resources", ["Low", "Medium", "High"])
-    motivation_level = st.selectbox(
-        "Motivation Level", ["Low", "Medium", "High"])
     family_income = st.selectbox("Family Income", ["Low", "Medium", "High"])
-    teacher_quality = st.selectbox(
-        "Teacher Quality", ["Low", "Medium", "High"])
     parental_education = st.selectbox("Parental Education Level", [
                                       "High School", "College", "Postgraduate"])
 
-col3, col4 = st.columns(2)
+    st.markdown('<p class="section-header">Motivation & Environment</p>',
+                unsafe_allow_html=True)
+    motivation_level = st.selectbox(
+        "Motivation Level", ["Low", "Medium", "High"])
+    teacher_quality = st.selectbox(
+        "Teacher Quality", ["Low", "Medium", "High"])
+
+col3, col4 = st.columns(2, gap="large")
 
 with col3:
-    st.markdown("School & Environment")
+    st.markdown('<p class="section-header">School Context</p>',
+                unsafe_allow_html=True)
     school_type = st.selectbox("School Type", ["Public", "Private"])
     peer_influence = st.selectbox(
         "Peer Influence", ["Negative", "Neutral", "Positive"])
@@ -87,7 +100,8 @@ with col3:
         "Distance from Home", ["Near", "Moderate", "Far"])
 
 with col4:
-    st.markdown("Additional Factors")
+    st.markdown('<p class="section-header">Additional Information</p>',
+                unsafe_allow_html=True)
     extracurricular = st.selectbox("Extracurricular Activities", ["No", "Yes"])
     internet_access = st.selectbox("Internet Access", ["No", "Yes"])
     learning_disabilities = st.selectbox(
@@ -95,33 +109,32 @@ with col4:
     gender = st.selectbox("Gender", ["Female", "Male"])
 
 student = {
-    "Hours_Studied": hours_studied,
-    "Attendance": attendance,
-    "Parental_Involvement": parental_involvement,
-    "Access_to_Resources": access_to_resources,
+    "Hours_Studied":             hours_studied,
+    "Attendance":                attendance,
+    "Parental_Involvement":      parental_involvement,
+    "Access_to_Resources":       access_to_resources,
     "Extracurricular_Activities": extracurricular,
-    "Sleep_Hours": sleep_hours,
-    "Previous_Scores": previous_scores,
-    "Motivation_Level": motivation_level,
-    "Internet_Access": internet_access,
-    "Tutoring_Sessions": tutoring_sessions,
-    "Family_Income": family_income,
-    "Teacher_Quality": teacher_quality,
-    "School_Type": school_type,
-    "Peer_Influence": peer_influence,
-    "Physical_Activity": physical_activity,
-    "Learning_Disabilities": learning_disabilities,
-    "Parental_Education_Level": parental_education,
-    "Distance_from_Home": distance_from_home,
-    "Gender": gender,
+    "Sleep_Hours":               sleep_hours,
+    "Previous_Scores":           previous_scores,
+    "Motivation_Level":          motivation_level,
+    "Internet_Access":           internet_access,
+    "Tutoring_Sessions":         tutoring_sessions,
+    "Family_Income":             family_income,
+    "Teacher_Quality":           teacher_quality,
+    "School_Type":               school_type,
+    "Peer_Influence":            peer_influence,
+    "Physical_Activity":         physical_activity,
+    "Learning_Disabilities":     learning_disabilities,
+    "Parental_Education_Level":  parental_education,
+    "Distance_from_Home":        distance_from_home,
+    "Gender":                    gender,
 }
 
 st.markdown("---")
 col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
 
 with col_btn2:
-    predict_btn = st.button("PREDICT ATTENDANCE RISK",
-                            use_container_width=True)
+    predict_btn = st.button("ANALYZE RISK", use_container_width=True)
 
 if predict_btn and model:
     for col, mapping in encode.items():
@@ -146,28 +159,30 @@ if predict_btn and model:
     pred = model.predict(X)[0]
     prob = model.predict_proba(X)[0][1]
 
+    decision = "SKIP" if pred == 1 else "ATTEND"
+
     st.balloons()
-
     st.markdown("---")
-    st.markdown("PREDICTION RESULT")
+    st.markdown("## PREDICTION RESULTS")
 
-    col_res1, col_res2 = st.columns(2)
+    col_res1, col_res2 = st.columns(2, gap="large")
 
     with col_res1:
         if pred == 1:
-            st.error("RECOMMENDATION: SKIP")
+            st.error(f"### DECISION: {decision}")
             st.warning(
-                "High risk of poor performance. Intervention recommended.")
+                "This student shows high risk. Immediate support and intervention strategies are recommended.")
         else:
-            st.success("RECOMMENDATION: ATTEND")
-            st.info("Likely to perform well. Maintain support.")
+            st.success(f"### DECISION: {decision}")
+            st.info(
+                "This student is likely to perform well. Continue current support structures.")
 
     with col_res2:
-        st.metric("Confidence", f"{prob * 100:.1f}%")
+        st.metric("Confidence Level", f"{prob * 100:.1f}%")
         st.metric("Risk Score", f"{student['risk_score']} / 8")
 
     st.markdown("---")
-    st.markdown("Risk Factors Breakdown")
+    st.markdown("### Risk Factors Analysis")
 
     risk_factors = []
     if student["Motivation_Level"] == 0:
@@ -189,12 +204,17 @@ if predict_btn and model:
 
     if risk_factors:
         for factor in risk_factors:
-            st.write(factor)
+            st.markdown(
+                f'<div class="risk-factor">{factor}</div>', unsafe_allow_html=True)
     else:
-        st.success("No major risk factors detected")
+        st.markdown(
+            '<div class="no-risk">No major risk factors detected - Student is well-positioned for success</div>', unsafe_allow_html=True)
 
     if student["risk_score"] >= 5:
-        st.warning("High Risk Alert: Immediate intervention recommended.")
+        st.markdown("---")
+        st.error("### HIGH RISK ALERT")
+        st.warning("Immediate Action Required: This student requires urgent intervention. Consider scheduling meetings with counselors, parents, and support staff.")
 
 st.markdown("---")
-st.caption("ClassIQ - AI-Powered Student Attendance Prediction System")
+st.caption(
+    "ClassIQ 2026 | AI-Powered Student Attendance Prediction System | Built with Streamlit & ML")

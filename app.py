@@ -4,7 +4,7 @@ import joblib
 import os
 
 st.set_page_config(
-    page_title="ClassIQ - Student Attendance Predictor",
+    page_title="ClassIQ",
     layout="wide",
     initial_sidebar_state="collapsed"
 )

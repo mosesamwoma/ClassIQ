@@ -18,6 +18,6 @@ It analyzes academic, behavioral, and environmental factors to predict whether a
 
 ## Live App
 
-👉 https://classiq.streamlit.app/
+🔗 https://classiq.streamlit.app/
 
 ---
